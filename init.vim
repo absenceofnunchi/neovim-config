@@ -2,7 +2,6 @@ set relativenumber
 set number
 set splitbelow
 set noswapfile
-set ignorecase
 set spell
 
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
@@ -39,12 +38,16 @@ vim.o.tabstop = 4
 vim.o.expandtab = true
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
-vim.opt.termguicolors = true
 vim.diagnostic.config({
 virtual_text = true,
 })
 vim.opt.wildmenu = true
 vim.opt.wildmode = "list:longest,list:full" -- don't insert, show options
+vim.opt.signcolumn = "number"
+vim.opt.splitright = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.termguicolors = true
 
 vim.fn.sign_define("LspDiagnosticsSignError", {text = "", texthl = "LspDiagnosticsSignError"})
 vim.fn.sign_define("LspDiagnosticsSignWarning", {text = "", texthl = "LspDiagnosticsSignWarning"})
@@ -57,8 +60,13 @@ vim.api.nvim_exec([[
 -- vim.lsp.set_log_level("debug")
 
 require('plugins')
-require('lsp_setup')
+require('lsp.pyright')
+require('lsp.clangd')
+require('lsp.sourcekit')
+require('lsp.typescript')
+require('lsp.go')
 require('keymaps')
+-- require('dap_setup')
 
 EOF
 

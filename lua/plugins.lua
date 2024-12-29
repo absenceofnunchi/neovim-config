@@ -1,21 +1,19 @@
+local plugins = {}
+
+local function extend_plugins(plugin_files)
+  for _, plugin_file in ipairs(plugin_files) do
+    local plugin_list = require('plugins.' .. plugin_file)
+    for _, plugin in ipairs(plugin_list) do
+      table.insert(plugins, plugin)
+    end
+  end
+end
+
+-- extend_plugins({'ui', 'lsp', 'completion', 'snack'})
+extend_plugins({'ui', 'git'})
+
 return require('lazy').setup({
-    ui = {
-        icons = {
-            cmd = "",
-            config = "",
-            event = "",
-            ft = "",
-            init = "",
-            keys = "",
-            plugin = "",
-            runtime = "",
-            require = "",
-            source = "",
-            start = "",
-            task = "",
-            lazy = "",
-        },
-    },
+    plugins,
     {
         'neovim/nvim-lspconfig',
     },
@@ -41,6 +39,7 @@ return require('lazy').setup({
         "nvim-telescope/telescope.nvim",
         config = function()
             require('telescope').setup({
+                path_display = { 'smart' },
                 vimgrep_arguments = {
                     'rg',
                     '--color=never',
@@ -50,9 +49,6 @@ return require('lazy').setup({
                     '--column',
                     '--smart-case'
                 },
-            })
-
-            require('telescope').setup({
                 pickers = {
                     find_files = {
                         hidden = true
@@ -65,6 +61,7 @@ return require('lazy').setup({
             vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
             vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
             vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+            vim.keymap.set('n', '<leader>fs', builtin.grep_string, {})
 
         end
     },
@@ -73,10 +70,28 @@ return require('lazy').setup({
         "nvim-treesitter/nvim-treesitter",
         config = function()
             require('nvim-treesitter.configs').setup({
-                 ensure_installed = { "c", "cpp" },
+                 ensure_installed = {
+                     "c",
+                     "cpp",
+                     "json",
+                     "javascript",
+                     "typescript",
+                     "tsx",
+                     "go",
+                     "swift",
+                     "python",
+                     "dockerfile",
+                     "yaml",
+                     "bash",
+                     "markdown",
+                     "swift",
+                 },
                  highlight = {
                      enable = true,              -- false will disable the whole extension
                      additional_vim_regex_highlighting = false,
+                 },
+                 autotag = {
+                     enable = true
                  },
             })
         end
@@ -97,22 +112,12 @@ return require('lazy').setup({
         config = function()
             require("nvim-tree").setup({
                 view = {
-                    width = 30,
+                    width = 35,
                     side = "left",
+                    relativenumber = true,
                 },
             })
-            vim.keymap.set("n", "<leader>n", ":NvimTreeToggle<CR>")
         end,
-    },
-
-    {
-        "kyazdani42/nvim-web-devicons",
-        config = function()
-            require('lazy').setup({
-                {'glepnir/nerdicons.nvim', cmd = 'NerdIcons', config = function() require('nerdicons').setup({}) end}
-            })
-            require("nvim-web-devicons").setup()
-        end
     },
 
     -- nvim-cmp setup
@@ -135,7 +140,7 @@ return require('lazy').setup({
 
             cmp.setup({
                 completion = {
-                    completeopt = "menu,menuone,noinsert",
+                    completeopt = "menu,menuone,preview,noinsert",
                 },
                 snippet = {
                     expand = function(args)
@@ -148,6 +153,11 @@ return require('lazy').setup({
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-e>"] = cmp.mapping.abort(),
                     ["<CR>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
+                    ['<c-d>'] = cmp.mapping.scroll_docs(-4),
+                    ['<c-f>'] = cmp.mapping.scroll_docs(4),
+                    ['<c-space>'] = cmp.mapping.complete(),
+                    ['<c-e>'] = cmp.mapping.close(),
+                    ['<cr>'] = cmp.mapping.confirm({ select = true }),
                     -- No direct vSnip equivalents for jumpable, fallback to other mappings if needed.
                 }),
                 sources = cmp.config.sources({
@@ -167,67 +177,22 @@ return require('lazy').setup({
         end,
     },
 
-    -- {
-    --     "hrsh7th/nvim-cmp",
-    --     version = false,
-    --     event = "InsertEnter",
-    --     dependencies = {
-    --         "hrsh7th/cmp-nvim-lsp",
-    --         "hrsh7th/cmp-path",
-    --         "hrsh7th/cmp-buffer",
-    --     },
-    --     config = function()
-    --         local cmp = require('cmp')
-    --         local luasnip = require('luasnip')
-    --         local opts = {
-    --             sources = cmp.config.sources {
-    --                 { name = "nvim_lsp", },
-    --                 { name = "path", },
-    --                 { name = "buffer", },
-    --             },
-    --             mapping = cmp.mapping.preset.insert({
-    --                 ["<CR>"] = cmp.mapping.confirm({ select = true }),
-    --                 ["<tab>"] = cmp.mapping(function(original)
-    --                     print("tab pressed")
-    --                     if cmp.visible() then
-    --                         print("cmp expand")
-    --                         cmp.select_next_item()
-    --                     elseif luasnip.expand_or_jumpable() then
-    --                         print("snippet expand")
-    --                         luasnip.expand_or_jump()
-    --                     else
-    --                         print("fallback")
-    --                         original()
-    --                     end
-    --                 end, {"i", "s"}),
-    --                 ["<S-tab>"] = cmp.mapping(function(original)
-    --                     if cmp.visible() then
-    --                         cmp.select_prev_item()
-    --                     elseif luasnip.expand_or_jumpable() then
-    --                         luasnip.jump(-1)
-    --                     else
-    --                         original()
-    --                     end
-    --                 end, {"i", "s"}),
-    --
-    --             })
-    --         }
-    --         cmp.setup(opts)
-    --     end,
-    -- },
-    -- { "hrsh7th/cmp-nvim-lsp", lazy = true },
-    -- { "hrsh7th/cmp-path", lazy = true },
-    -- { "hrsh7th/cmp-buffer", lazy = true },
+    {
+        'windwp/nvim-autopairs',
+        config = function()
+            require('nvim-autopairs').setup{
+                check_ts = true, -- Enable Tree-sitter integration
+                ts_config = {
+                    go = { "string", "source" }, -- Specify Go file types to handle strings and source code
+                },
+                disable_filetype = { "TelescopePrompt", "vim" },
+                fast_wrap = {},
 
-    {'windwp/nvim-autopairs',
-        config = function() require('nvim-autopairs').setup{
-            check_ts = true, -- Enable Tree-sitter integration
-            ts_config = {
-                go = { "string", "source" }, -- Specify Go file types to handle strings and source code
-            },
-            disable_filetype = { "TelescopePrompt", "vim" },
-            fast_wrap = {},
-        } end
+            }
+            local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+            local cmp = require('cmp')
+            cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+        end
     },
 
     {
@@ -281,38 +246,6 @@ return require('lazy').setup({
         },
     },
 
---     {
---         "shaunsingh/nord.nvim",
---         config = function()
---             vim.g.nord_contrast = true
---             vim.g.nord_borders = false
---             vim.g.nord_disable_background = false
---             vim.g.nord_italic = false
---             vim.g.nord_uniform_diff_background = true
---             vim.g.nord_bold = false
---
---             require('nord').set()
---         end,
---     },
-
-    -- {
-    --     'AlexvZyl/nordic.nvim',
-    --     lazy = false,
-    --     priority = 1000,
-    --     config = function()
-    --         require 'nordic' .load()
-    --     end
-    -- },
-    {
-        'rebelot/kanagawa.nvim',
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.cmd("colorscheme kanagawa")
-        end
-    },
-
-
     {"mg979/vim-visual-multi"},
 
     {
@@ -364,13 +297,6 @@ return require('lazy').setup({
         config = function()
             -- Optional: Add any configuration for asyncrun.vim here
         end
-    },
-    {
-        'tpope/vim-fugitive',
-        event = "VimEnter",
-        config = function()
-            -- Add any vim-fugitive specific configuration here
-        end,
     },
 })
 

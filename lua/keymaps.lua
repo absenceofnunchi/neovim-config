@@ -19,6 +19,23 @@ _G.toggle_terminal = function()
 end
 
 vim.api.nvim_set_keymap('n', '<C-t>', [[:lua toggle_terminal()<CR>]], { noremap = true, silent = true })
+
+local function term_escape_and_move(key)
+  return string.format('<C-\\><C-N><C-w>%s', key)
+end
+
+-- Key mappings for window navigation in terminal mode
+vim.api.nvim_set_keymap('t', '<C-Left>', term_escape_and_move('h'), { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<C-Down>', term_escape_and_move('j'), { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<C-Up>', term_escape_and_move('k'), { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<C-Right>', term_escape_and_move('l'), { noremap = true, silent = true })
+
+-- Key mappings for escaping the terminal mode
+vim.api.nvim_set_keymap('t', '<C-[>', '<C-\\><C-n>', { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<leader>nh', ':nohl<CR>', { desc = 'Clear search highlights', noremap = true, silent = true  })
+vim.api.nvim_set_keymap('n', '<leader>nh', ':nohl<CR>', { desc = 'Clear search highlights', noremap = true, silent = true  })
+
 -- Key mappings for resizing splits with Control + Shift + Arrow keys
 vim.api.nvim_set_keymap('n', '<C-S-Up>', ':resize +5<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-S-Down>', ':resize -5<CR>', { noremap = true, silent = true })
@@ -35,19 +52,6 @@ vim.api.nvim_set_keymap('n', '<C-Left>', '<C-w>h', { noremap = true, silent = tr
 vim.api.nvim_set_keymap('n', '<C-Down>', '<C-w>j', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-Up>', '<C-w>k', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-Right>', '<C-w>l', { noremap = true, silent = true })
-
-local function term_escape_and_move(key)
-  return string.format('<C-\\><C-N><C-w>%s', key)
-end
-
--- Key mappings for window navigation in terminal mode
-vim.api.nvim_set_keymap('t', '<C-Left>', term_escape_and_move('h'), { noremap = true, silent = true })
-vim.api.nvim_set_keymap('t', '<C-Down>', term_escape_and_move('j'), { noremap = true, silent = true })
-vim.api.nvim_set_keymap('t', '<C-Up>', term_escape_and_move('k'), { noremap = true, silent = true })
-vim.api.nvim_set_keymap('t', '<C-Right>', term_escape_and_move('l'), { noremap = true, silent = true })
-
--- Key mappings for escaping the terminal mode
-vim.api.nvim_set_keymap('t', '<C-[>', '<C-\\><C-n>', { noremap = true, silent = true })
 
 -- Key mapping for opening a link with Brave
 vim.api.nvim_set_keymap('n', 'gx', "<Cmd>lua vim.fn.jobstart({'open', '-a', 'Brave Browser', vim.fn.expand('<cfile>')}, {detach=true})<CR>", {noremap = true, silent = true})
