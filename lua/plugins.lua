@@ -10,7 +10,7 @@ local function extend_plugins(plugin_files)
 end
 
 -- extend_plugins({'ui', 'lsp', 'completion', 'snack'})
-extend_plugins({'ui', 'git'})
+extend_plugins({'ui', 'git', 'ai'})
 
 return require('lazy').setup({
     plugins,
@@ -38,32 +38,43 @@ return require('lazy').setup({
     {
         "nvim-telescope/telescope.nvim",
         config = function()
+            local actions = require('telescope.actions')
             require('telescope').setup({
-                path_display = { 'smart' },
-                vimgrep_arguments = {
-                    'rg',
-                    '--color=never',
-                    '--no-heading',
-                    '--with-filename',
-                    '--line-number',
-                    '--column',
-                    '--smart-case'
+                defaults = {
+                    mappings = {
+                        i = {
+                            ["<C-n>"] = actions.move_selection_next, -- Move to next item
+                            ["<Down>"] = actions.move_selection_next,
+                            ["<C-p>"] = actions.move_selection_previous, -- Move to previous item
+                            ["<Up>"] = actions.move_selection_previous,
+                        },
+                    },
+                    path_display = { 'smart' },
+                    vimgrep_arguments = {
+                        'rg',
+                        '--color=never',
+                        '--no-heading',
+                        '--with-filename',
+                        '--line-number',
+                        '--column',
+                        '--smart-case',
+                    },
+                    pickers = {
+                        find_files = {
+                            hidden = true,
+                        },
+                    },
                 },
-                pickers = {
-                    find_files = {
-                        hidden = true
-                    }
-                }
             })
 
+            -- Keymaps for Telescope built-in functions
             local builtin = require('telescope.builtin')
             vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
             vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
             vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
             vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
             vim.keymap.set('n', '<leader>fs', builtin.grep_string, {})
-
-        end
+        end,
     },
 
     {
@@ -174,6 +185,21 @@ return require('lazy').setup({
                 },
             })
             vim.g.vsnip_snippet_dir = '~/.config/nvim/snippets' -- Set snippet directory
+
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = "*",
+                callback = function()
+                    vim.cmd([[syntax spell toplevel]])
+                end,
+            })
+
+            -- Enable spellcheck for specific filetypes
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "markdown", "gitcommit", "text", "swift", "c", "obj", "python",  "go", "gomod", "gowork", "gotmpl",  "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact", "javascript.jsx" },
+                callback = function()
+                    vim.opt_local.spell = true
+                end,
+            })
         end,
     },
 

@@ -1,3 +1,8 @@
+
+
+
+vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>', { desc = "Toggle NvimTree", noremap = true, silent = true })
+
 -- Function to toggle terminal
 _G.toggle_terminal = function()
   local term_buf_nr = nil
@@ -43,10 +48,10 @@ vim.api.nvim_set_keymap('n', '<C-S-Left>', ':vertical resize -5<CR>', { noremap 
 vim.api.nvim_set_keymap('n', '<C-S-Right>', ':vertical resize +5<CR>', { noremap = true, silent = true })
 
 -- Key mappings for window navigation in normal mode
-vim.api.nvim_set_keymap('n', '<C-w>h', '<C-w>h', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-w>j', '<C-w>j', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-w>k', '<C-w>k', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-w>l', '<C-w>l', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-a>h', '<C-w>h', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-a>j', '<C-w>j', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-a>k', '<C-w>k', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-a>l', '<C-w>l', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<C-Left>', '<C-w>h', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-Down>', '<C-w>j', { noremap = true, silent = true })
@@ -56,6 +61,9 @@ vim.api.nvim_set_keymap('n', '<C-Right>', '<C-w>l', { noremap = true, silent = t
 -- Key mapping for opening a link with Brave
 vim.api.nvim_set_keymap('n', 'gx', "<Cmd>lua vim.fn.jobstart({'open', '-a', 'Brave Browser', vim.fn.expand('<cfile>')}, {detach=true})<CR>", {noremap = true, silent = true})
 
+-- Zoom in and out
+vim.keymap.set("n", "<Leader>rz", "<C-w>_<C-w>|", { desc = "full si[z]e" })
+vim.keymap.set("n", "<Leader>rZ", "<C-w>=", { desc = "even si[Z]e" })
 
 -- Compile and run C++ code
 -- vim.api.nvim_set_keymap('n', '<Leader>cr', ':w<CR>:!g++ -o main main.cpp && ./main<CR>', { noremap = true, silent = true })
@@ -154,3 +162,17 @@ vim.api.nvim_set_keymap('n', '\\5', ':tabn 3<CR>', { noremap = true, silent = tr
 
 -- Go to the 6rd tab
 vim.api.nvim_set_keymap('n', '\\6', ':tabn 3<CR>', { noremap = true, silent = true })
+
+-- Function to toggle Copilot
+function ToggleCopilot()
+    if vim.g.copilot_enabled == 1 then
+        vim.g.copilot_enabled = 0
+        print("Copilot disabled")
+    else
+        vim.g.copilot_enabled = 1
+        print("Copilot enabled")
+    end
+end
+
+-- Key binding to toggle Copilot
+vim.api.nvim_set_keymap('n', '<leader>co', ':lua ToggleCopilot()<CR>', { noremap = true, silent = true })

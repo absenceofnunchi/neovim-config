@@ -46,7 +46,6 @@ return {
             vim.cmd("colorscheme kanagawa")
         end
     },
-
     {
         "kyazdani42/nvim-web-devicons",
         config = function()
@@ -68,7 +67,8 @@ return {
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         options = {
             icons_enabled = true,
-            theme = 'gruvbox',
+            -- theme = 'gruvbox',
+            theme = 'kanagawa',
             component_separators = { left = '', right = ''},
             section_separators = { left = '', right = ''},
             disabled_filetypes = {
