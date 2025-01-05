@@ -15,6 +15,20 @@ M.on_attach = function(_, bufnr)
     vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)  -- Format
     vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)  -- Go to type definition
     vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, bufopts)  -- Signature help
+
+    -- Auto-close quickfix window after selecting a reference
+    vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'qf',
+        callback = function()
+            vim.api.nvim_buf_set_keymap(
+                0,
+                'n',
+                '<CR>',
+                '<CR>:cclose<CR>',
+                { noremap = true, silent = true }
+            )
+        end,
+    })
 end
 
 return M

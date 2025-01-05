@@ -43,10 +43,11 @@ return require('lazy').setup({
                 defaults = {
                     mappings = {
                         i = {
-                            ["<C-n>"] = actions.move_selection_next, -- Move to next item
+                            ["<C-j>"] = actions.move_selection_next, -- Move to next item
                             ["<Down>"] = actions.move_selection_next,
-                            ["<C-p>"] = actions.move_selection_previous, -- Move to previous item
+                            ["<C-k>"] = actions.move_selection_previous, -- Move to previous item
                             ["<Up>"] = actions.move_selection_previous,
+                            ['<C-p>'] = require('telescope.actions.layout').toggle_preview
                         },
                     },
                     path_display = { 'smart' },
@@ -64,6 +65,9 @@ return require('lazy').setup({
                             hidden = true,
                         },
                     },
+                    preview = {
+                        hide_on_startup = true -- hide previewer when picker starts
+                    }
                 },
             })
 
