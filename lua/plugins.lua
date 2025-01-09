@@ -78,6 +78,8 @@ return require('lazy').setup({
             vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
             vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
             vim.keymap.set('n', '<leader>fs', builtin.grep_string, {})
+            vim.keymap.set('n', '<leader>fo', builtin.oldfiles, {})
+            vim.keymap.set('n', '<leader>ch', builtin.command_history, {})
         end,
     },
 

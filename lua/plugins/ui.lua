@@ -38,14 +38,26 @@ return {
     --         require 'nordic' .load()
     --     end
     -- },
+    -- {
+    --     'rebelot/kanagawa.nvim',
+    --     lazy = false,
+    --     priority = 1000,
+    --     config = function()
+    --         vim.cmd("colorscheme kanagawa")
+    --     end
+    -- },
+
+
     {
-        'rebelot/kanagawa.nvim',
+        "catppuccin/nvim",
+        name = "catppuccin",
         lazy = false,
         priority = 1000,
         config = function()
-            vim.cmd("colorscheme kanagawa")
+            vim.cmd("colorscheme catppuccin")
         end
     },
+
     {
         "kyazdani42/nvim-web-devicons",
         config = function()

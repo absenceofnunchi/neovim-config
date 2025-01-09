@@ -39,7 +39,7 @@ vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 
 vim.diagnostic.config({
-    virtual_text = true,
+virtual_text = true,
 })
 vim.opt.wildmenu = true
 vim.opt.wildmode = "list:longest,list:full" -- don't insert, show options
