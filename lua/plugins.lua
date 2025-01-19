@@ -9,7 +9,6 @@ local function extend_plugins(plugin_files)
   end
 end
 
--- extend_plugins({'ui', 'lsp', 'completion', 'snack'})
 extend_plugins({'ui', 'git', 'ai'})
 
 return require('lazy').setup({
@@ -50,7 +49,7 @@ return require('lazy').setup({
                             ['<C-p>'] = require('telescope.actions.layout').toggle_preview
                         },
                     },
-                    path_display = { 'smart' },
+                    -- path_display = { 'smart' },
                     vimgrep_arguments = {
                         'rg',
                         '--color=never',
@@ -106,6 +105,7 @@ return require('lazy').setup({
                  highlight = {
                      enable = true,              -- false will disable the whole extension
                      additional_vim_regex_highlighting = false,
+                     disable = {}
                  },
                  autotag = {
                      enable = true
@@ -118,7 +118,7 @@ return require('lazy').setup({
         "nvim-tree/nvim-tree.lua",
         version = "*",
         lazy = false,
-        git = {
+        git= {
             enable = true,
             ignore = false,
         },
@@ -210,6 +210,19 @@ return require('lazy').setup({
     },
 
     {
+        "kylechui/nvim-surround",
+        config = function()
+            require("nvim-surround").setup({
+                -- This ensures it doesn't interfere with Ctrl+{ in visual mode
+                keymaps = {
+                    visual = "S",
+                    visual_line = "gS",
+                }
+            })
+        end
+    },
+
+    {
         'windwp/nvim-autopairs',
         config = function()
             require('nvim-autopairs').setup{
@@ -225,6 +238,23 @@ return require('lazy').setup({
             local cmp = require('cmp')
             cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
         end
+    },
+
+    {
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        ---@type Flash.Config
+        opts = {},
+        -- stylua: ignore
+        keys = {
+            -- { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+            -- { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+            { "<leader>s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+            { "<leader>S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+            { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+            { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+            { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+        },
     },
 
     {

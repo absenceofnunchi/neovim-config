@@ -1,6 +1,3 @@
-
-
-
 vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>', { desc = "Toggle NvimTree", noremap = true, silent = true })
 
 -- Function to toggle terminal
@@ -81,16 +78,15 @@ end
 
 -- Set a keymap for the build command
 -- Here, '<leader>b' is used as the shortcut (typically '\' in Neovim)
-vim.api.nvim_set_keymap('n', '<leader>b', ':w<CR>:!cd /Users/jeff/Documents/Code/C++/fitness_tracker/build && sudo cmake .. && sudo cmake --build .<CR>', { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<Leader>cr', ':w<CR>:!clang++ -std=c++20 -o %:r % && echo "Compilation done" && %:r<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>br', ':w<CR>:!cd build && make<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>b', ':w<CR>:!cd /Users/jeff/Documents/Code/C++/fitness_tracker/build && sudo cmake .. && sudo cmake --build .<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<Leader>cr', ':w<CR>:!clang++ -std=c++20 -o %:r % && echo "Compilation done" && %:r<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<Leader>br', ':w<CR>:!cd build && make<CR>', { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('n', '<Leader>r', ':w<CR>:!node ./cognito-quicksight-auth.js<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>r', ':w<CR>:!cmake --build build && ./build/fitness_server<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<Leader>r', ':w<CR>:!cmake --build build && ./build/fitness_server<CR>', { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('n', '<Leader>r', ':w<CR>:!npm start<CR>', { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('n', '<Leader>r', ':w<CR>:!sudo /usr/local/bin/manage_valhalla.sh build<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>m', ':w<CR>:!sudo /usr/local/bin/manage_valhalla.sh make<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>bp', ':w<CR>:!sudo /usr/local/bin/manage_valhalla.sh bp<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<Leader>m', ':w<CR>:!sudo /usr/local/bin/manage_valhalla.sh make<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<Leader>bp', ':w<CR>:!sudo /usr/local/bin/manage_valhalla.sh bp<CR>', { noremap = true, silent = true })
 
 -- neovim-dap
 vim.api.nvim_set_keymap('n', '<F5>', '<Cmd>lua require"dap".continue()<CR>', { noremap = true })
@@ -110,20 +106,20 @@ vim.api.nvim_set_keymap('n', '<F11>', '<Cmd>lua require"dap".step_into()<CR>', {
 --     vim.cmd('!valhalla_service valhalla.json 1')
 --     print("Valhalla has been rebuilt and restarted.")
 -- end
-_G.build_valhalla = function()
-    vim.cmd('!cmake -B build -DCMAKE_BUILD_TYPE=Release')
-    vim.cmd('!make -C build -j$(nproc)')
-    vim.cmd('!sudo make -C build install')
-    vim.cmd('!find valhalla_tiles | sort -n | tar cf valhalla_tiles.tar --no-recursion -T -')
-
-    -- Start valhalla_service in the background and save its PID
-    local pid = vim.fn.system('valhalla_service valhalla.json 1 & echo $!')
-    vim.g.valhalla_pid = tonumber(pid)
-
-    print("Valhalla has been rebuilt and restarted.")
-end
-
-vim.api.nvim_set_keymap('n', '<Leader>bv', ':lua _G.build_valhalla()<CR>', { noremap = true, silent = false })
+-- _G.build_valhalla = function()
+--     vim.cmd('!cmake -B build -DCMAKE_BUILD_TYPE=Release')
+--     vim.cmd('!make -C build -j$(nproc)')
+--     vim.cmd('!sudo make -C build install')
+--     vim.cmd('!find valhalla_tiles | sort -n | tar cf valhalla_tiles.tar --no-recursion -T -')
+--
+--     -- Start valhalla_service in the background and save its PID
+--     local pid = vim.fn.system('valhalla_service valhalla.json 1 & echo $!')
+--     vim.g.valhalla_pid = tonumber(pid)
+--
+--     print("Valhalla has been rebuilt and restarted.")
+-- end
+--
+-- vim.api.nvim_set_keymap('n', '<Leader>bv', ':lua _G.build_valhalla()<CR>', { noremap = true, silent = false })
 
 _G.stop_valhalla = function()
     if vim.g.valhalla_pid then
@@ -176,3 +172,70 @@ end
 
 -- Key binding to toggle Copilot
 vim.api.nvim_set_keymap('n', '<leader>co', ':lua ToggleCopilot()<CR>', { noremap = true, silent = true })
+
+-- -- For parentheses
+-- vim.keymap.set('v', '(', 'c()<Esc>P')
+-- vim.keymap.set('v', ')', 'c()<Esc>P')
+--
+-- -- For square brackets
+-- vim.keymap.set('v', '[', 'c[]<Esc>P')
+-- vim.keymap.set('v', ']', 'c[]<Esc>P')
+--
+-- -- For curly braces
+-- vim.keymap.set('v', '{', 'c{}<Esc>P')
+-- vim.keymap.set('v', '}', 'c{}<Esc>P')
+--
+-- -- Alternative mappings using leader key
+-- vim.keymap.set('v', '<leader>(', 'c()<Esc>P')
+-- vim.keymap.set('v', '<leader>[', 'c[]<Esc>P')
+-- vim.keymap.set('v', '<leader>{', 'c{}<Esc>P')
+
+-- Auto-pair mappings for insert mode
+-- vim.keymap.set('i', '(', '()<Left>')
+-- vim.keymap.set('i', '[', '[]<Left>')
+-- vim.keymap.set('i', '{', '{}<Left>')
+-- vim.keymap.set('i', '"', '""<Left>')
+-- vim.keymap.set('i', "'", "''<Left>")
+-- vim.keymap.set('i', '`', '``<Left>')
+--
+-- -- Optional: Add mappings to skip over closing character
+-- vim.keymap.set('i', ')', function()
+--     if string.sub(vim.fn.getline('.'), vim.fn.col('.'), vim.fn.col('.')) == ')' then
+--         return '<Right>'
+--     else
+--         return ')'
+--     end
+-- end, { expr = true })
+
+-- Function to surround selected text with characters
+-- local function surround_visual(open_char, close_char)
+--     return function()
+--         local mode = vim.api.nvim_get_mode().mode
+--         if mode == 'v' or mode == 'V' then
+--             vim.api.nvim_input("<Esc>`>a" .. close_char .. "<Esc>`<i" .. open_char .. "<Esc>")
+--         else
+--             return open_char .. close_char .. "<Left>"
+--         end
+--     end
+-- end
+--
+-- -- Auto-pair mappings for insert and visual mode
+-- vim.keymap.set({'i', 'v'}, '(', surround_visual('(', ')'), { expr = true })
+-- vim.keymap.set({'i', 'v'}, '[', surround_visual('[', ']'), { expr = true })
+-- vim.keymap.set({'i', 'v'}, '{', surround_visual('{', '}'), { expr = true })
+-- vim.keymap.set({'i', 'v'}, '"', surround_visual('"', '"'), { expr = true })
+-- vim.keymap.set({'i', 'v'}, "'", surround_visual("'", "'"), { expr = true })
+-- vim.keymap.set({'i', 'v'}, '`', surround_visual('`', '`'), { expr = true })
+--
+-- -- Optional: Add mappings to skip over closing character
+-- vim.keymap.set('i', ')', function()
+--     if string.sub(vim.fn.getline('.'), vim.fn.col('.'), vim.fn.col('.')) == ')' then
+--         return '<Right>'
+--     else
+--         return ')'
+--     end
+-- end, { expr = true })
+--
+-- -- Preserve Ctrl+{ and Ctrl+} navigation
+-- vim.keymap.set('n', '<C-{>', '<C-{>', { noremap = true })
+

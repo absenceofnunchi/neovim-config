@@ -1,12 +1,5 @@
-"set relativenumber
-"set number
-"set splitbelow
+set number
 set noswapfile
-
-"nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-"nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-"nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-"nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 "nnoremap <leader>t :NvimTreeToggle<CR>
 nnoremap <Leader>rm :call delete(expand('%')) \
 nnoremap <Leader>tn :tabnext<CR>
@@ -39,7 +32,7 @@ vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 
 vim.diagnostic.config({
-virtual_text = true,
+    virtual_text = true,
 })
 vim.opt.wildmenu = true
 vim.opt.wildmode = "list:longest,list:full" -- don't insert, show options
@@ -64,9 +57,10 @@ vim.opt.cmdheight = 1
 vim.opt.laststatus = 3
 vim.opt.expandtab = true
 vim.opt.inccommand = "split"
-vim.opt.scrolloff = 10
+-- vim.opt.scrolloff = 10
 vim.opt.breakindent = true
-vim.opt.wrap = false
+vim.opt.wrap = true
+vim.opt.linebreak = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.splitkeep = "cursor"
@@ -93,7 +87,10 @@ require('lsp.sourcekit')
 require('lsp.typescript')
 require('lsp.go')
 require('keymaps')
+-- require("plugins.colors")
 -- require('dap_setup')
+
+vim.cmd("colorscheme vague")
 
 EOF
 
