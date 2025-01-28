@@ -90,7 +90,7 @@ require('keymaps')
 -- require("plugins.colors")
 -- require('dap_setup')
 
-vim.cmd("colorscheme vague")
+-- vim.cmd("colorscheme vague")
 
 EOF
 

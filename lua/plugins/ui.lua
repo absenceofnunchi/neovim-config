@@ -16,19 +16,19 @@ return {
             lazy = "",
         },
     },
---     {
---         "shaunsingh/nord.nvim",
---         config = function()
---             vim.g.nord_contrast = true
---             vim.g.nord_borders = false
---             vim.g.nord_disable_background = false
---             vim.g.nord_italic = false
---             vim.g.nord_uniform_diff_background = true
---             vim.g.nord_bold = false
---
---             require('nord').set()
---         end,
---     },
+    -- {
+    --     "shaunsingh/nord.nvim",
+    --     config = function()
+    --         vim.g.nord_contrast = true
+    --         vim.g.nord_borders = false
+    --         vim.g.nord_disable_background = true
+    --         vim.g.nord_italic = false
+    --         vim.g.nord_uniform_diff_background = true
+    --         vim.g.nord_bold = false
+    --
+    --         require('nord').set()
+    --     end,
+    -- },
 
     -- {
     --     'AlexvZyl/nordic.nvim',
@@ -47,58 +47,58 @@ return {
     --     end
     -- },
 
-    -- {
-    --     "catppuccin/nvim",
-    --     name = "catppuccin",
-    --     priority = 1000,
-    --     opts = {
-    --         term_colors = true,
-    --         transparent_background = true,
-    --         dim_inactive = {
-    --             enabled = false, -- dims the background color of inactive window
-    --             shade = "dark",
-    --             percentage = 0.15, -- percentage of the shade to apply to the inactive window
-    --         },
-    --         integrations = {
-    --             cmp = true,
-    --             gitsigns = true,
-    --             treesitter = true,
-    --             harpoon = true,
-    --             telescope = true,
-    --             mason = true,
-    --             noice = true,
-    --             notify = true,
-    --             which_key = true,
-    --             fidget = true,
-    --             native_lsp = {
-    --                 enabled = true,
-    --                 virtual_text = {
-    --                     errors = { "italic" },
-    --                     hints = { "italic" },
-    --                     warnings = { "italic" },
-    --                     information = { "italic" },
-    --                 },
-    --                 underlines = {
-    --                     errors = { "underline" },
-    --                     hints = { "underline" },
-    --                     warnings = { "underline" },
-    --                     information = { "underline" },
-    --                 },
-    --                 inlay_hints = {
-    --                     background = true,
-    --                 },
-    --             },
-    --             mini = {
-    --                 enabled = true,
-    --                 indentscope_color = "",
-    --             },
-    --         },
-    --     },
-    --     config = function(_, opts)
-    --         require("catppuccin").setup(opts)
-    --         vim.cmd.colorscheme("catppuccin-macchiato")
-    --     end,
-    -- },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        opts = {
+            term_colors = true,
+            transparent_background = true,
+            dim_inactive = {
+                enabled = false, -- dims the background color of inactive window
+                shade = "dark",
+                percentage = 0.15, -- percentage of the shade to apply to the inactive window
+            },
+            integrations = {
+                cmp = true,
+                gitsigns = true,
+                treesitter = true,
+                harpoon = true,
+                telescope = true,
+                mason = true,
+                noice = true,
+                notify = true,
+                which_key = true,
+                fidget = true,
+                native_lsp = {
+                    enabled = true,
+                    virtual_text = {
+                        errors = { "italic" },
+                        hints = { "italic" },
+                        warnings = { "italic" },
+                        information = { "italic" },
+                    },
+                    underlines = {
+                        errors = { "underline" },
+                        hints = { "underline" },
+                        warnings = { "underline" },
+                        information = { "underline" },
+                    },
+                    inlay_hints = {
+                        background = true,
+                    },
+                },
+                mini = {
+                    enabled = true,
+                    indentscope_color = "",
+                },
+            },
+        },
+        config = function(_, opts)
+            require("catppuccin").setup(opts)
+            vim.cmd.colorscheme("catppuccin-Macchiato")
+        end,
+    },
 
     -- lua/plugins/rose-pine.lua
     -- {
@@ -168,66 +168,66 @@ return {
     --     end,
     -- },
     -- Lazy
-    {
-        "vague2k/vague.nvim",
-        config = function()
-            require("vague").setup({
-                transparent = true,
-                style = {
-                    -- "none" is the same thing as default. But "italic" and "bold" are also valid options
-                    boolean = "none",
-                    number = "none",
-                    float = "none",
-                    error = "none",
-                    comments = "none",
-                    conditionals = "none",
-                    functions = "none",
-                    headings = "bold",
-                    operators = "none",
-                    strings = "none",
-                    variables = "none",
-
-                    -- keywords
-                    keywords = "none",
-                    keyword_return = "none",
-                    keywords_loop = "none",
-                    keywords_label = "none",
-                    keywords_exception = "none",
-
-                    -- builtin
-                    builtin_constants = "none",
-                    builtin_functions = "none",
-                    builtin_types = "none",
-                    builtin_variables = "none",
-                },
-                -- Override colors
-                colors = {
-                    -- bg = "#18191a",
-                    -- fg = "#cdcdcd",
-                    -- floatBorder = "#878787",
-                    -- line = "#282830",
-                    -- comment = "#646477",
-                    -- builtin = "#bad1ce",
-                    func = "#bc96b0",
-                    string = "#deb896",
-                    number = "#8f729e",
-                    -- property = "#c7c7d4",
-                    -- constant = "#b4b4ce",
-                    -- parameter = "#b9a3ba",
-                    -- visual = "#363738",
-                    -- error = "#d2788c",
-                    -- warning = "#e6be8c",
-                    -- hint = "#8ca0dc",
-                    -- operator = "#96a3b2",
-                    -- keyword = "#787bab",
-                    -- type = "#a1b3b9",
-                    -- search = "#465362",
-                    -- plus = "#8faf77",
-                    -- delta = "#e6be8c",
-                },
-            })
-        end
-    },
+    -- {
+    --     "vague2k/vague.nvim",
+    --     config = function()
+    --         require("vague").setup({
+    --             transparent = true,
+    --             style = {
+    --                 -- "none" is the same thing as default. But "italic" and "bold" are also valid options
+    --                 boolean = "none",
+    --                 number = "none",
+    --                 float = "none",
+    --                 error = "none",
+    --                 comments = "none",
+    --                 conditionals = "none",
+    --                 functions = "none",
+    --                 headings = "bold",
+    --                 operators = "none",
+    --                 strings = "none",
+    --                 variables = "none",
+    --
+    --                 -- keywords
+    --                 keywords = "none",
+    --                 keyword_return = "none",
+    --                 keywords_loop = "none",
+    --                 keywords_label = "none",
+    --                 keywords_exception = "none",
+    --
+    --                 -- builtin
+    --                 builtin_constants = "none",
+    --                 builtin_functions = "none",
+    --                 builtin_types = "none",
+    --                 builtin_variables = "none",
+    --             },
+    --             -- Override colors
+    --             colors = {
+    --                 -- bg = "#18191a",
+    --                 -- fg = "#cdcdcd",
+    --                 -- floatBorder = "#878787",
+    --                 -- line = "#282830",
+    --                 -- comment = "#646477",
+    --                 -- builtin = "#bad1ce",
+    --                 func = "#bc96b0",
+    --                 string = "#deb896",
+    --                 number = "#8f729e",
+    --                 -- property = "#c7c7d4",
+    --                 -- constant = "#b4b4ce",
+    --                 -- parameter = "#b9a3ba",
+    --                 -- visual = "#363738",
+    --                 -- error = "#d2788c",
+    --                 -- warning = "#e6be8c",
+    --                 -- hint = "#8ca0dc",
+    --                 -- operator = "#96a3b2",
+    --                 -- keyword = "#787bab",
+    --                 -- type = "#a1b3b9",
+    --                 -- search = "#465362",
+    --                 -- plus = "#8faf77",
+    --                 -- delta = "#e6be8c",
+    --             },
+    --         })
+    --     end
+    -- },
 
     {
         "kyazdani42/nvim-web-devicons",
@@ -243,7 +243,12 @@ return {
         main = "ibl",
         ---@module "ibl"
         ---@type ibl.config
-        opts = {},
+        opts = {
+            indent = {
+                char = '╎',
+                -- char = '▏',
+            },
+        },
     },
     {
         'nvim-lualine/lualine.nvim',
@@ -278,6 +283,9 @@ return {
                     path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
                 }
             },
+            lualine_d = {
+                { "buffers"}
+            },
             lualine_x = {'encoding', 'fileformat', 'filetype'},
             lualine_y = {'progress'},
             lualine_z = {'location'}
@@ -290,7 +298,9 @@ return {
             lualine_y = {},
             lualine_z = {}
         },
-        tabline = {},
+        tabline = {
+            lualine_a = {'buffers'}, -- This section shows multiple buffers
+        },
         winbar = {},
         inactive_winbar = {},
         extensions = {},

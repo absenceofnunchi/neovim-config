@@ -1,4 +1,9 @@
 vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>', { desc = "Toggle NvimTree", noremap = true, silent = true })
+-- Resize panes
+vim.api.nvim_set_keymap('n', '<C-M-l>', ':vertical resize -5<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-M-h>', ':vertical resize +5<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-M-k>', ':resize +5<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-M-j>', ':resize -5<CR>', { noremap = true, silent = true })
 
 -- Function to toggle terminal
 _G.toggle_terminal = function()
