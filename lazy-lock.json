@@ -1,6 +1,5 @@
 {
   "asyncrun.vim": { "branch": "master", "commit": "78dc9277f2b989553861ee7c35b640112d95e1b5" },
-  "catppuccin": { "branch": "main", "commit": "f67b886d65a029f12ffa298701fb8f1efd89295d" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
   "cmp-cmdline": { "branch": "main", "commit": "d250c63aa13ead745e3a40f61fdd3470efde3923" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "99290b3ec1322070bcfb9e846450a46f6efa50f0" },
@@ -26,9 +25,11 @@
   "plenary.nvim": { "branch": "master", "commit": "3707cdb1e43f5cea73afb6037e6494e7ce847a66" },
   "ripgrep": { "branch": "master", "commit": "d6b59feff890f038acde7d5e151995d8aec1e107" },
   "telescope.nvim": { "branch": "master", "commit": "415af52339215926d705cccc08145f3782c4d132" },
+  "vague.nvim": { "branch": "main", "commit": "aa744dbf7bfc768da3dd232ccde3b337182903dc" },
   "vim-codefmt": { "branch": "master", "commit": "ff464a478202df40ae484e6e94a1d56587fcc69e" },
   "vim-fugitive": { "branch": "master", "commit": "d74a7cff4cfcf84f83cc7eccfa365488f3bbabc2" },
   "vim-maktaba": { "branch": "master", "commit": "fe95bb10f6bb250943a44632107f6a3d76ce5f28" },
+  "vim-oscyank": { "branch": "main", "commit": "4b068e5b553f907c5f6d00b0ab9e1e3b98cf71bf" },
   "vim-visual-multi": { "branch": "master", "commit": "a6975e7c1ee157615bbc80fc25e4392f71c344d4" },
   "vim-vsnip": { "branch": "master", "commit": "02a8e79295c9733434aab4e0e2b8c4b7cea9f3a9" },
   "xcodebuild.nvim": { "branch": "main", "commit": "deb47c9d151d87f62a7dae086402a643032406d3" }

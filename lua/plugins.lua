@@ -403,5 +403,10 @@ return require('lazy').setup({
             -- Optional: Add any configuration for asyncrun.vim here
         end
     },
+    {
+        "ojroques/vim-oscyank",
+
+    },
+
 })
 
