@@ -167,7 +167,8 @@ return require('lazy').setup({
         },
         filters = {
             dotfiles = false,
-            custom = { '^.git$' }
+            custom = { '^.git$' },
+            git_ignored = false,
         },
         config = function()
             require("nvim-tree").setup({
